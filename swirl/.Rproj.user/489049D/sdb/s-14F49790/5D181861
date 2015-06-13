@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1433876775854.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5D181861",
+    "lastKnownWriteTime" : 7741240723082584096,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "my_vector",
+        "contentUrl" : "content?title=my_vector&file=5c89b40686c348658567785ba7952efd.htm",
+        "displayedObservations" : 4,
+        "displayedVariables" : 5,
+        "totalObservations" : 4,
+        "variables" : 5
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

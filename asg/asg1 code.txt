@@ -1,0 +1,9 @@
+weightmedian <- function(directory, day) {
+  files_list <- list.files(directory, full.names=TRUE) #creates a list of files
+  dat <- data.frame()  # creates an empty data frame
+  for (i in 1:5) {
+   dat <- rbind(dat, read.csv(files_list[i])) #loops through the files, rbinding them to
+  }
+   dat_subset <- dat[which(dat[, "Day"] == day),] ## Subsets the rows that match 'day' argument
+  median(dat_subset[,"Weight"], na.rm=TRUE)  ## Identifies the median weight while removing NA values
+}

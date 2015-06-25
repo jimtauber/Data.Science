@@ -1,8 +1,8 @@
 ## md.result <- read.csv("./data/outcome-of-care-measures.csv", colClasses = "character")
 
 best <- function(state, outcome) {
-        ## Read outcome data read.csv includes flag to convert the string "Not Available" to R type NA
-        md.result <- read.csv("./data/outcome-of-care-measures.csv", colClasses = "character", na.strings="Not Available", stringsAsFactors=FALSE)
+        ## Read outcome data
+        md.result <- read.csv("./data/outcome-of-care-measures.csv", colClasses = "character")
         condition <- c("heart attack", "heart failure", "pneumonia")
         selst <- state
         ## Check that state and outcome are valid
@@ -13,10 +13,11 @@ best <- function(state, outcome) {
         if(is.element(outcome,condition) == FALSE){
                 stop("invalid outcome")
         }
-        ## Asign case type var - allows for direct selection of column. option would be to rename the column for better access
+        ## Asign case type var
         if (outcome == "heart attack"){
                 case.type <- 11
-                
+                ## md.result.stsel[,12] <- as.double(md.result.stsel[,12])
+                ## bad <- is.na(md.result.stsel[case.type])
         } else if (outcome == "heart failure"){
                 case.type <- 17
         } else if (outcome == "pneumonia"){
@@ -26,18 +27,17 @@ best <- function(state, outcome) {
         
         ## Return hospital name in that state with lowest 30-day death
         ## for case type
-        md.result.state <- md.result[md.result[,7] == state, ] # create a dataset of the state data
-        ## convert rates to numeric, cleaning up for proper sorting
-        md.result.state[,11] <- as.double(md.result.state[,11])
-        md.result.state[,17] <- as.double(md.result.state[,17])
-        md.result.state[,23] <- as.double(md.result.state[,23])
-        
+        md.result.stsel <- md.result[md.result[,7] == state, ] # create a dataset of the state data
+        ## convert rates to numeric
+        md.result.stsel[,11] <- as.double(md.result.stsel[,11])
+        md.result.stsel[,17] <- as.double(md.result.stsel[,17])
+        md.result.stsel[,23] <- as.double(md.result.stsel[,23])
+        ##bad <- is.na(md.result.stsel[,11])
+        ##md.result.final <- md.result.stsel[!bad]
                      
         
-        death.min <- min(md.result.state[,case.type], na.rm=TRUE)
-        min.result <- md.result.state[md.result.state[,case.type] == death.min, ]
-        death.max <- max(md.result.state[,case.type], na.rm=TRUE)
-        max.result <- md.result.state[md.result.state[,case.type] == death.max, ]
+        death.min <- min(md.result.stsel[,case.type], na.rm=TRUE)
+        min.result <- md.result.stsel[md.result.stsel[,case.type] == death.min, ]
         
         # need to sort list by hospital name
         result.sort <- min.result[order(min.result$Hospital.Name),]
